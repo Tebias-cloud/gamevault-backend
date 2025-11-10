@@ -13,10 +13,7 @@ const app = express();
 app.use(express.json()); // Permite que el servidor entienda JSON
 
 // Configuración avanzada de CORS para permitir SÓLO tu dominio de GitHub Pages
-app.use(cors({
-    origin: allowedOrigin,
-    methods: ['POST'], // Solo permitimos el método POST para el chat
-})); 
+app.use(cors()); 
 
 // 3. Configurar la IA de Google
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
