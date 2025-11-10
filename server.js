@@ -14,7 +14,6 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 // ESTA ES LA LÍNEA CORRECTA:
 // LA LÍNEA CORRECTA Y ESTABLE:
 const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-
 // 4. Crear el "endpoint" (la ruta) que el chat usará
 app.post('/api/chat', async (req, res) => {
   try {
