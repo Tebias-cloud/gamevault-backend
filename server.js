@@ -18,8 +18,8 @@ app.use(cors());
 // 3. Configurar la IA de Google
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 // Usamos gemini-pro (es el modelo correcto para esta librería)
-const model = genAI.getGenerativeModel({ model: "gemini-pro" }); 
-
+// CAMBIAMOS a la versión que el Vercel antiguo debe reconocer
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 // 4. Crear el "endpoint" (la ruta) que el chat usará
 app.post('/api/chat', async (req, res) => {
     try {
