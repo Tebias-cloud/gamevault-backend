@@ -4,7 +4,8 @@
   "description": "Servidor para el chatbot de GameVault.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "preinstall": "rm -rf node_modules package-lock.json"
   },
   "engines": {
     "node": "20.11.1"

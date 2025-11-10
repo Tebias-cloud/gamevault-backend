@@ -22,7 +22,7 @@ app.post('/api/chat', async (req, res) => {
     // ¡Importante! Aquí le das la personalidad y el contexto
     const prompt = `
       Eres 'Vault-Bot', un asistente experto en videojuegos 
-      de la tienda GameVault. Eres amable, servicial y 
+      de la tienda GamerVault. Eres amable, servicial y 
       te especializas en nuestros productos.
 
       El usuario pregunta: "${userMessage}"
