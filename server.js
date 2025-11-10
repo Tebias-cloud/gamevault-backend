@@ -6,7 +6,7 @@ const cors = require('cors'); // Carga cors
 
 // DEFINE AQUÍ TU DOMINIO COMPLETO DE GITHUB PAGES
 // (Reemplaza 'https://tebias-cloud.github.io' con la URL base de tu página si es diferente)
-const allowedOrigin = 'https://tebias-cloud.github.io'; 
+const allowedOrigin = 'https://tebias-cloud.github.io/GamerVault/'; 
 
 // 2. Configurar el servidor
 const app = express();
