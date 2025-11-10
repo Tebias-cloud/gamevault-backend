@@ -4,28 +4,25 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
 require('dotenv').config(); // Carga el archivo .env
 const cors = require('cors'); // Carga cors
 
-// DEFINE AQUÍ TU DOMINIO COMPLETO DE GITHUB PAGES
-// (Reemplaza 'https://tebias-cloud.github.io' con la URL base de tu página si es diferente)
-const allowedOrigin = 'https://tebias-cloud.github.io/GamerVault/'; 
-
 // 2. Configurar el servidor
 const app = express();
 app.use(express.json()); // Permite que el servidor entienda JSON
 
-// Configuración avanzada de CORS para permitir SÓLO tu dominio de GitHub Pages
+// *** CONFIGURACIÓN DE CORS FINAL Y CORRECTA ***
+// Usamos el comodín (app.use(cors())) para eliminar cualquier bloqueo por dominio.
 app.use(cors()); 
 
-// 3. Configurar la IA de Google
+// 3. Configurar la IA de Google (Obtiene la clave de las variables de Vercel)
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-// Usamos gemini-pro (es el modelo correcto para esta librería)
-// CAMBIAMOS a la versión que el Vercel antiguo debe reconocer
-const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+// Usamos gemini-2.5-flash (el modelo más nuevo que la librería antigua puede reconocer)
+const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" }); 
+
 // 4. Crear el "endpoint" (la ruta) que el chat usará
 app.post('/api/chat', async (req, res) => {
     try {
         const userMessage = req.body.mensaje;
 
-        // ¡Importante! Aquí le das la personalidad y el contexto
+        // Definición de la personalidad del bot para el modelo de IA
         const prompt = `
             Eres 'Vault-Bot', un asistente experto en videojuegos 
             de la tienda GamerVault. Eres amable, servicial y 
@@ -39,19 +36,19 @@ app.post('/api/chat', async (req, res) => {
         const response = await result.response;
         const aiText = response.text();
 
-        // 6. Devolver la respuesta al Front-End
+        // 6. Devuelve la respuesta al Front-End
         res.json({ respuesta: aiText });
 
     } catch (error) {
         console.error('Error de API o Clave:', error);
-        // Devolvemos un error 500 para el Front-End
-        res.status(500).json({ respuesta: "Error: No pude conectar con la IA. Asegúrate de que la clave API esté activa." });
+        // Devuelve un error 500 para el Front-End (ya que el problema es la clave)
+        res.status(500).json({ respuesta: "Error: No pude conectar con la IA. Por favor, revisa la clave API." });
     }
 });
 
 // 7. Iniciar el servidor
-// Vercel y Render automáticamente proveen el puerto en la variable de entorno PORT
 const port = process.env.PORT || 3000; 
 app.listen(port, () => {
-    console.log(`Servidor escuchando en puerto ${port}. Dominio CORS permitido: ${allowedOrigin}`);
+    // Nota: El console.log que intentaba imprimir allowedOrigin ha sido eliminado.
+    console.log(`Servidor escuchando en puerto ${port}. Listo.`);
 });
