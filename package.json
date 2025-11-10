@@ -1,7 +1,7 @@
 {
   "name": "gamevault-backend",
   "version": "1.0.0",
-  "description": "Servidor para el chatbot de GameVault.",
+  "description": "Servidor para el chatbot de GamerVault.",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js"
