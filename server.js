@@ -40,9 +40,19 @@ app.post('/api/chat', async (req, res) => {
         res.json({ respuesta: aiText });
 
     } catch (error) {
+        // Registra el error completo en la consola del servidor (Vercel)
         console.error('Error de API o Clave:', error);
-        // Devuelve un error 500 para el Front-End (ya que el problema es la clave)
-        res.status(500).json({ respuesta: "Error: No pude conectar con la IA. Por favor, revisa la clave API." });
+        
+        // El error 400 indica API_KEY_INVALID o clave expirada.
+        // Forzamos el mensaje al Front-End para que el usuario sepa que la clave falló.
+        if (error.status === 400 || error.status === 403) {
+             return res.status(403).json({ 
+                 respuesta: "Error: La clave de Google API ha expirado o es inválida. Por favor, reemplázala en Vercel." 
+             });
+        }
+
+        // Devuelve un error 500 para el Front-End (problema del servidor)
+        res.status(500).json({ respuesta: "Error: No pude conectar con la IA. Intenta de nuevo." });
     }
 });
 
