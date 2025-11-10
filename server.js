@@ -13,7 +13,7 @@ app.use(cors()); // Permite peticiones de otros dominios (tu GitHub Pages)
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 // ESTA ES LA LÍNEA CORRECTA:
 // LA LÍNEA CORRECTA Y ESTABLE:
-const model = genAI.getGenerativeModel({ model: "gemini-1.0-pro" });
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
 // 4. Crear el "endpoint" (la ruta) que el chat usará
 app.post('/api/chat', async (req, res) => {
